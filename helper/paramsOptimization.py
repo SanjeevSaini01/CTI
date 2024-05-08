@@ -20,7 +20,7 @@ def model_a(feature_layer,init,activation,dropout_rate,regularizer = tf.keras.re
     model.add(layers.Dropout(dropout_rate))
     model.add(layers.Dense(1, activation='sigmoid'))
 
-    return modela
+    return model
 
 
 def model_b(feature_layer,init,activation,dropout_rate,regularizer = tf.keras.regularizers.l2(0.02)):
@@ -38,7 +38,7 @@ def model_b(feature_layer,init,activation,dropout_rate,regularizer = tf.keras.re
     model.add(layers.Dropout(dropout_rate))
     model.add(layers.Dense(1, activation='sigmoid'))
 
-    return modelb
+    return model
 
 
 def gridSearchParams(model,X,Y):
