@@ -3,8 +3,8 @@ import tensorflow as tf
 from tensorflow import feature_column
 
 def file_reader():
-    data = pd.read_csv('D:\\Sanjeev_Disertation\\UNSW_NB15_training-set.csv')
-    data_ = pd.read_csv('D:\\Sanjeev_Disertation\\UNSW_NB15_testing-set.csv')
+    data = pd.read_csv('~\\UNSW_NB15_training-set.csv')
+    data_ = pd.read_csv('~\\UNSW_NB15_testing-set.csv')
     data = pd.concat([data, data_], ignore_index=True)
     return data
 
