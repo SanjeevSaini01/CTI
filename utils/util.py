@@ -1,10 +1,14 @@
 import pandas as pd
 import tensorflow as tf
 from tensorflow import feature_column
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
+mpl.rcParams['figure.figsize'] = (12, 10)
 
 def file_reader():
-    data = pd.read_csv('~\\UNSW_NB15_training-set.csv')
-    data_ = pd.read_csv('~\\UNSW_NB15_testing-set.csv')
+    data = pd.read_csv('D:\\Sanjeev_Disertation\\UNSW_NB15_training-set.csv')
+    data_ = pd.read_csv('D:\\Sanjeev_Disertation\\UNSW_NB15_testing-set.csv')
     data = pd.concat([data, data_], ignore_index=True)
     return data
 
@@ -17,7 +21,7 @@ def data_preparation(data):
     
     return data_features,data_labels
 
-def  shuffle_dataset(data_features,data_labels,batch_size,shuffle=True):
+def  shuffle_dataset(data_features,data_labels,batch_size,shuffle=False):
     ds = tf.data.Dataset.from_tensor_slices((dict(data_features),data_labels))
     if shuffle:
         ds = ds.shuffle(buffer_size=len(data_features))
@@ -46,3 +50,23 @@ def column_transformation(training_data_features,dataframe):
         indicator_column = feature_column.indicator_column(categorical_column)
         feature_columns.append(indicator_column)
     return feature_columns
+
+
+def plot_metrics(history):
+  metrics = ['loss', 'Precision', 'Recall','AUC']
+  for n, metric in enumerate(metrics):
+    name = metric.replace("_"," ").capitalize()
+    plt.subplot(2,2,n+1)
+    plt.plot(history.epoch, history.history[metric], color=colors[0], label='Train')
+    plt.plot(history.epoch, history.history['val_'+metric],
+             color=colors[1], linestyle="--", label='Val')
+    plt.xlabel('Epoch')
+    plt.ylabel(name)
+    if metric == 'loss':
+      plt.ylim([0, plt.ylim()[1]])
+    elif metric == 'auc':
+      plt.ylim([0.8,1])
+    else:
+      plt.ylim([0,1])
+
+    plt.legend()
