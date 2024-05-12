@@ -7,8 +7,8 @@ colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
 mpl.rcParams['figure.figsize'] = (12, 10)
 
 def file_reader():
-    data = pd.read_csv('D:\\Sanjeev_Disertation\\UNSW_NB15_training-set.csv')
-    data_ = pd.read_csv('D:\\Sanjeev_Disertation\\UNSW_NB15_testing-set.csv')
+    data = pd.read_csv('~\\UNSW_NB15_training-set.csv')
+    data_ = pd.read_csv('~\\UNSW_NB15_testing-set.csv')
     data = pd.concat([data, data_], ignore_index=True)
     return data
 
